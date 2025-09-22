@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>yoxla24 • Finance Marketplace</title>
+    <meta
+      name="description"
+      content="Compare the best retail credit, business credit, insurance, deposits, and internet packages from leading banks on yoxla24."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg-base: #05080f;
+        --bg-elevated: rgba(26, 35, 58, 0.55);
+        --bg-elevated-strong: rgba(14, 21, 40, 0.85);
+        --primary: #6d8bff;
+        --primary-accent: #95b4ff;
+        --primary-strong: #4c6cff;
+        --text: #e5ecff;
+        --text-muted: #a1afd7;
+        --success: #5ed0a5;
+        --warning: #f6c86d;
+        --radius-lg: 28px;
+        --radius-md: 20px;
+        --radius-sm: 14px;
+        --shadow: 0 24px 60px rgba(15, 22, 45, 0.45);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background: radial-gradient(circle at 15% 20%, rgba(122, 103, 255, 0.28), transparent 52%),
+          radial-gradient(circle at 90% 10%, rgba(38, 205, 255, 0.24), transparent 45%),
+          radial-gradient(circle at 50% 90%, rgba(93, 191, 146, 0.2), transparent 55%), var(--bg-base);
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: radial-gradient(circle at 30% 10%, rgba(109, 139, 255, 0.18), transparent 65%);
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      .page-shell {
+        width: min(1180px, 94vw);
+        margin: 0 auto;
+        padding: 40px 0 120px;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 20px 0 40px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .brand-mark {
+        width: 52px;
+        height: 52px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, rgba(109, 139, 255, 0.85), rgba(82, 222, 183, 0.75));
+        display: grid;
+        place-items: center;
+        font-family: 'Playfair Display', serif;
+        font-size: 28px;
+        font-weight: 700;
+        color: #05080f;
+        box-shadow: var(--shadow);
+      }
+
+      .brand-name {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .brand-name span:first-child {
+        font-size: 1.4rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .brand-name span:last-child {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        letter-spacing: 0.16em;
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        font-size: 0.92rem;
+      }
+
+      nav a {
+        color: var(--text-muted);
+        text-decoration: none;
+        transition: color 0.2s ease, transform 0.2s ease;
+      }
+
+      nav a:hover {
+        color: var(--text);
+        transform: translateY(-2px);
+      }
+
+      .cta-button {
+        padding: 12px 22px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-strong));
+        border: none;
+        color: #fff;
+        font-weight: 600;
+        font-size: 0.95rem;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        box-shadow: 0 14px 38px rgba(76, 108, 255, 0.35);
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.3s ease;
+      }
+
+      .cta-button:hover {
+        transform: translateY(-2px) scale(1.01);
+        box-shadow: 0 18px 44px rgba(76, 108, 255, 0.45);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 48px;
+        padding: 40px 0 80px;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.4rem, 4vw, 3.8rem);
+        margin: 0;
+        font-family: 'Playfair Display', serif;
+        line-height: 1.1;
+      }
+
+      .hero p.lead {
+        margin: 22px 0 32px;
+        font-size: 1.05rem;
+        color: var(--text-muted);
+      }
+
+      .hero-insights {
+        display: grid;
+        gap: 16px;
+        margin-top: 36px;
+      }
+
+      .insight {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        background: var(--bg-elevated);
+        padding: 18px 22px;
+        border-radius: var(--radius-md);
+        border: 1px solid rgba(110, 139, 255, 0.2);
+        backdrop-filter: blur(12px);
+        box-shadow: var(--shadow);
+      }
+
+      .insight strong {
+        font-size: 1.2rem;
+        color: var(--primary-accent);
+      }
+
+      .hero-panel {
+        background: var(--bg-elevated-strong);
+        padding: 32px;
+        border-radius: var(--radius-lg);
+        border: 1px solid rgba(149, 180, 255, 0.24);
+        backdrop-filter: blur(18px);
+        box-shadow: 0 26px 64px rgba(5, 9, 20, 0.55);
+        display: grid;
+        gap: 28px;
+      }
+
+      .hero-panel h2 {
+        margin: 0;
+        font-size: 1.6rem;
+      }
+
+      .stat-grid {
+        display: grid;
+        gap: 18px;
+      }
+
+      .stat {
+        padding: 18px 20px;
+        border-radius: var(--radius-md);
+        background: rgba(8, 12, 24, 0.75);
+        border: 1px solid rgba(86, 114, 186, 0.32);
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .stat span:first-child {
+        font-size: 1.9rem;
+        font-weight: 700;
+      }
+
+      .stat span:last-child {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .section-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 24px;
+        margin-bottom: 32px;
+      }
+
+      .section-heading h2 {
+        margin: 0;
+        font-size: clamp(1.8rem, 3vw, 2.4rem);
+        font-family: 'Playfair Display', serif;
+      }
+
+      .section-heading p {
+        margin: 0;
+        color: var(--text-muted);
+        max-width: 520px;
+      }
+
+      .category {
+        margin-bottom: 80px;
+      }
+
+      .offers-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 28px;
+      }
+
+      .offer-card {
+        padding: 26px;
+        border-radius: var(--radius-md);
+        background: var(--bg-elevated);
+        border: 1px solid rgba(100, 139, 255, 0.24);
+        backdrop-filter: blur(16px);
+        box-shadow: var(--shadow);
+        display: grid;
+        gap: 18px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .offer-card::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at top right, rgba(110, 139, 255, 0.25), transparent 60%);
+        opacity: 0;
+        transition: opacity 0.25s ease;
+      }
+
+      .offer-card:hover::after {
+        opacity: 1;
+      }
+
+      .offer-card:hover {
+        transform: translateY(-4px);
+      }
+
+      .offer-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .bank-name {
+        font-weight: 600;
+        font-size: 1.05rem;
+      }
+
+      .tag {
+        padding: 6px 14px;
+        border-radius: 999px;
+        font-size: 0.75rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        background: rgba(93, 208, 165, 0.16);
+        color: var(--success);
+      }
+
+      .rate {
+        font-size: 2rem;
+        font-weight: 700;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--text-muted);
+        font-size: 0.75rem;
+      }
+
+      .pill svg {
+        width: 16px;
+        height: 16px;
+        fill: var(--warning);
+      }
+
+      .details {
+        display: grid;
+        gap: 10px;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+      }
+
+      .apply-now {
+        justify-self: flex-start;
+        padding: 12px 20px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-strong));
+        color: #fff;
+        font-weight: 600;
+        text-decoration: none;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        box-shadow: 0 18px 40px rgba(76, 108, 255, 0.35);
+        transition: transform 0.2s ease, box-shadow 0.3s ease;
+      }
+
+      .apply-now:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 22px 46px rgba(76, 108, 255, 0.45);
+      }
+
+      .insights-panel {
+        background: var(--bg-elevated);
+        border-radius: var(--radius-lg);
+        padding: 36px;
+        border: 1px solid rgba(149, 180, 255, 0.2);
+        backdrop-filter: blur(18px);
+        box-shadow: var(--shadow);
+        display: grid;
+        gap: 22px;
+      }
+
+      .insight-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+      }
+
+      .insight-card {
+        padding: 20px;
+        border-radius: var(--radius-md);
+        background: rgba(8, 12, 24, 0.8);
+        border: 1px solid rgba(82, 110, 186, 0.32);
+        display: grid;
+        gap: 12px;
+      }
+
+      .insight-card h3 {
+        margin: 0;
+        font-size: 1rem;
+      }
+
+      .insight-card p {
+        margin: 0;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+      }
+
+      footer {
+        margin-top: 100px;
+        padding: 40px 0 20px;
+        border-top: 1px solid rgba(82, 110, 186, 0.3);
+        color: var(--text-muted);
+        font-size: 0.85rem;
+        display: grid;
+        gap: 18px;
+      }
+
+      footer .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 24px;
+      }
+
+      footer h4 {
+        margin: 0 0 12px;
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      footer ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 8px;
+      }
+
+      footer a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      footer a:hover {
+        color: var(--primary-accent);
+      }
+
+      @media (max-width: 900px) {
+        header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        nav {
+          flex-wrap: wrap;
+          justify-content: flex-start;
+        }
+
+        .hero {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .page-shell {
+          width: min(96vw, 560px);
+          padding-top: 24px;
+        }
+
+        header {
+          padding-bottom: 12px;
+        }
+
+        .hero-panel {
+          padding: 24px;
+        }
+
+        .offer-card {
+          padding: 22px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header>
+        <a class="brand" href="#">
+          <div class="brand-mark">Y</div>
+          <div class="brand-name">
+            <span>yoxla24</span>
+            <span>Finance Marketplace</span>
+          </div>
+        </a>
+        <nav>
+          <a href="#retail-credit">Retail Credit</a>
+          <a href="#business-credit">Business Credit</a>
+          <a href="#insurance">Insurance</a>
+          <a href="#life-insurance">Life Insurance</a>
+          <a href="#deposits">Deposits</a>
+          <a href="#internet">Internet Packages</a>
+          <button class="cta-button" type="button">Apply Now</button>
+        </nav>
+      </header>
+
+      <section class="hero">
+        <div>
+          <h1>Personalized finance offers curated to help you grow faster.</h1>
+          <p class="lead">
+            yoxla24 unifies leading regional banks and insurers into a single dark-mode experience. Compare rates, evaluate
+            perks, and submit confident applications in seconds.
+          </p>
+          <a class="apply-now" href="#retail-credit">Start Comparing</a>
+          <div class="hero-insights">
+            <div class="insight">
+              <strong>120+</strong>
+              <span>Partner banks and providers ensure offers tailored to your ambitions.</span>
+            </div>
+            <div class="insight">
+              <strong>Instant</strong>
+              <span>Pre-qualification screening to keep your credit score safe.</span>
+            </div>
+          </div>
+        </div>
+        <aside class="hero-panel">
+          <h2>Today&apos;s Spotlights</h2>
+          <div class="stat-grid">
+            <div class="stat">
+              <span>7.9%</span>
+              <span>Retail APR from FlexBank</span>
+            </div>
+            <div class="stat">
+              <span>₼250k</span>
+              <span>Business credit limit from CapitalTrade</span>
+            </div>
+            <div class="stat">
+              <span>15%</span>
+              <span>Cashback on premium insurance</span>
+            </div>
+          </div>
+          <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">
+            We surface the most competitive rates from our curated partners every morning. Activate notifications to stay
+            ahead of market swings.
+          </p>
+          <a class="apply-now" href="#contact">Apply Now</a>
+        </aside>
+      </section>
+
+      <section id="retail-credit" class="category">
+        <div class="section-heading">
+          <div>
+            <h2>Retail Credit</h2>
+            <p>
+              Finance lifestyle upgrades with transparent monthly repayments. Compare APRs, cashback perks, and flexible
+              payment holidays across trusted lenders.
+            </p>
+          </div>
+          <span class="pill">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 10 10A10.011 10.011 0 0 0 12 2Zm1 15h-2v-2h2Zm0-4h-2V7h2Z" /></svg>
+            Guaranteed rate lock for 30 days
+          </span>
+        </div>
+        <div class="offers-grid">
+          <article class="offer-card">
+            <div class="offer-header">
+              <span class="bank-name">FlexBank</span>
+              <span class="tag">Top pick</span>
+            </div>
+            <div class="rate">7.9% APR</div>
+            <div class="details">
+              <span>Fixed rate for 36 months</span>
+              <span>₼5,000 cash bonus for early loyalty sign-up</span>
+              <span>24/7 concierge and travel insurance included</span>
+            </div>
+            <a class="apply-now" href="#">Apply Now</a>
+          </article>
+          <article class="offer-card">
+            <div class="offer-header">
+              <span class="bank-name">MetroOne</span>
+              <span class="tag" style="background: rgba(246, 200, 109, 0.15); color: var(--warning);">Limited</span>
+            </div>
+            <div class="rate">9.2% APR</div>
+            <div class="details">
+              <span>Grace period: 90 days with zero interest</span>
+              <span>Flexible balloon repayment option</span>
+              <span>Mobile wallet integration with instant approvals</span>
+            </div>
+            <a class="apply-now" href="#">Apply Now</a>
+          </article>
+          <article class="offer-card">
+            <div class="offer-header">
+              <span class="bank-name">UnionCard</span>
+            </div>
+            <div class="rate">11.4% APR</div>
+            <div class="details">
+              <span>5x loyalty points on fashion & travel</span>
+              <span>Complimentary airport lounge access</span>
+              <span>Smart alerts to prevent missed payments</span>
+            </div>
+            <a class="apply-now" href="#">Apply Now</a>
+          </article>
+        </div>
+      </section>
+
+      <section id="business-credit" class="category">
+        <div class="section-heading">
+          <div>
+            <h2>Business Credit</h2>
+            <p>
+              Accelerate growth with credit lines tuned for SMEs, startups, and established enterprises. Evaluate collateral
+              requirements, sector bonuses, and treasury tools in one view.
+            </p>
+          </div>
+          <span class="pill">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V5Zm1 15h-2v-2h2Zm0-4h-2V7h2Z" /></svg>
+            Dedicated risk advisors included
+          </span>
+        </div>
+        <div class="offers-grid">
+          <article class="offer-card">
+            <div class="offer-header">
+              <span class="bank-name">CapitalTrade</span>
+              <span class="tag">Growth</span>
+            </div>
+            <div class="rate">₼250k limit</div>
+            <div class="details">
+              <span>Prime + 2.5% variable rate</span>
+              <span>No collateral under ₼100k draw</span>
+              <span>Built-in FX hedging for import businesses</span>
+            </div>
+            <a class="apply-now" href="#">Apply Now</a>
+          </article>
+          <article class="offer-card">
+            <div class="offer-header">
+              <span class="bank-name">NordInvest</span>
+            </div>
+            <div class="rate">8.4% rate</div>
+            <div class="details">
+              <span>Invoice financing within 24h</span>
+              <span>Dedicated relationship manager</span>
+              <span>Free payroll suite for teams under 50</span>
+            </div>
+            <a class="apply-now" href="#">Apply Now</a>
+          </article>
+          <article class="offer-card">
+            <div class="offer-header">
+              <span class="bank-name">EnterpriseCo</span>
+              <span class="tag" style="background: rgba(93, 208, 165, 0.18); color: var(--success);">ESG</span>
+            </div>
+            <div class="rate">6.9% rate</div>
+            <div class="details">
+              <span>Green projects earn 1.5% cashback</span>
+              <span>Carbon analytics dashboard</span>
+              <span>Access to sustainable sourcing marketplace</span>
+            </div>
+            <a class="apply-now" href="#">Apply Now</a>
+          </article>
+        </div>
+      </section>
+
+      <section id="insurance" class="category">
+        <div class="section-heading">
+          <div>
+            <h2>Insurance</h2>
+            <p>
+              Protect every journey with packages covering travel, property, and health. Transparent coverage tiers help you
+              choose the right plan with zero guesswork.
+            </p>
+          </div>
+          <span class="pill">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m20 6-8-4-8 4 8 4 8-4Zm-8 6-6.91-3.45L4 10v2l8 4 8-4v-2l-1.09-.55ZM12 18l-6.91-3.45L4 14v2l8 4 8-4v-2l-1.09.55Z" /></svg>
+            Coverage plans with instant digital onboarding
+          </span>
+        </div>
+        <div class="offers-grid">
+          <article class="offer-card">
+            <div class="offer-header">
+              <span class="bank-name">Secureline</span>
+              <span class="tag">Travel</span>
+            </div>
+            <div class="rate">₼19 / month</div>
+            <div class="details">
+              <span>Worldwide trips up to 120 days</span>
+              <span>Includes flight cancellation reimbursement</span>
+              <span>24h multilingual emergency support</span>
+            </div>
+            <a class="apply-now" href="#">Apply Now</a>
+          </article>
+          <article class="offer-card">
+            <div class="offer-header">
+              <span class="bank-name">ShieldMutual</span>
+            </div>
+            <div class="rate">₼45 / month</div>
+            <div class="details">
+              <span>Property protection up to ₼500k</span>
+              <span>Smart sensors discount up to 15%</span>
+              <span>Rapid claims with 48h payout</span>
+            </div>
+            <a class="apply-now" href="#">Apply Now</a>
+          </article>
+          <article class="offer-card">
+            <div class="offer-header">
+              <span class="bank-name">ZenHealth</span>
+              <span class="tag" style="background: rgba(149, 180, 255, 0.2); color: var(--primary-accent);">Family</span>
+            </div>
+            <div class="rate">₼79 / month</div>
+            <div class="details">
+              <span>Zero co-pay telemedicine</span>
+              <span>Wellness reimbursements up to ₼1,200</span>
+              <span>Premium hospital network access</span>
+            </div>
+            <a class="apply-now" href="#">Apply Now</a>
+          </article>
+        </div>
+      </section>
+
+      <section id="life-insurance" class="category">
+        <div class="section-heading">
+          <div>
+            <h2>Life Insurance</h2>
+            <p>
+              Secure family futures with term and whole-life plans personalized to every milestone. Monitor expected returns
+              and rider benefits in real time.
+            </p>
+          </div>
+          <span class="pill">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a5 5 0 0 0-5 5v3.53a4 4 0 1 0 8 0V8a5 5 0 0 0-5-5Zm0 18a7 7 0 0 1-7-7h2a5 5 0 0 0 10 0h2a7 7 0 0 1-7 7Z" /></svg>
+            Personalized wellness coaching
+          </span>
+        </div>
+        <div class="offers-grid">
+          <article class="offer-card">
+            <div class="offer-header">
+              <span class="bank-name">LegacyLife</span>
+              <span class="tag">Term 25</span>
+            </div>
+            <div class="rate">₼34 / month</div>
+            <div class="details">
+              <span>Coverage: ₼250,000 over 25 years</span>
+              <span>Premium freeze guarantee</span>
+              <span>Annual wellbeing consultation included</span>
+            </div>
+            <a class="apply-now" href="#">Apply Now</a>
+          </article>
+          <article class="offer-card">
+            <div class="offer-header">
+              <span class="bank-name">Infinity Assurance</span>
+              <span class="tag" style="background: rgba(246, 200, 109, 0.18); color: var(--warning);">Cashback</span>
+            </div>
+            <div class="rate">₼92 / month</div>
+            <div class="details">
+              <span>Participating whole-life policy</span>
+              <span>Projected return 4.2% annually</span>
+              <span>Tuition protection rider included</span>
+            </div>
+            <a class="apply-now" href="#">Apply Now</a>
+          </article>
+          <article class="offer-card">
+            <div class="offer-header">
+              <span class="bank-name">PulseCare</span>
+            </div>
+            <div class="rate">₼56 / month</div>
+            <div class="details">
+              <span>Hybrid term + critical illness coverage</span>
+              <span>DNA-driven longevity score</span>
+              <span>Premium relief during parental leave</span>
+            </div>
+            <a class="apply-now" href="#">Apply Now</a>
+          </article>
+        </div>
+      </section>
+
+      <section id="deposits" class="category">
+        <div class="section-heading">
+          <div>
+            <h2>Deposits</h2>
+            <p>
+              Grow savings with insured deposit accounts. Track maturity, compounding cadence, and loyalty boosters while you
+              compare.
+            </p>
+          </div>
+          <span class="pill">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2 9l10 6 9.999-6Zm9.999 9L12 18 2 12l10 6 9.999-6Z" /></svg>
+            All deposits insured up to ₼100k
+          </span>
+        </div>
+        <div class="offers-grid">
+          <article class="offer-card">
+            <div class="offer-header">
+              <span class="bank-name">Emerald Bank</span>
+            </div>
+            <div class="rate">4.8% APY</div>
+            <div class="details">
+              <span>12-month fixed deposit</span>
+              <span>Loyalty booster +0.5% after 6 months</span>
+              <span>Free debit card with lounge access</span>
+            </div>
+            <a class="apply-now" href="#">Apply Now</a>
+          </article>
+          <article class="offer-card">
+            <div class="offer-header">
+              <span class="bank-name">Bluewave</span>
+            </div>
+            <div class="rate">3.9% APY</div>
+            <div class="details">
+              <span>Flexible withdrawals every quarter</span>
+              <span>Green project matching donations</span>
+              <span>AI-powered savings coach</span>
+            </div>
+            <a class="apply-now" href="#">Apply Now</a>
+          </article>
+          <article class="offer-card">
+            <div class="offer-header">
+              <span class="bank-name">Atlas Vault</span>
+              <span class="tag">New</span>
+            </div>
+            <div class="rate">5.4% APY</div>
+            <div class="details">
+              <span>18-month compound schedule</span>
+              <span>Auto-rollover with rate lock guarantee</span>
+              <span>Dedicated wealth concierge</span>
+            </div>
+            <a class="apply-now" href="#">Apply Now</a>
+          </article>
+        </div>
+      </section>
+
+      <section id="internet" class="category">
+        <div class="section-heading">
+          <div>
+            <h2>Internet Packages</h2>
+            <p>
+              Bundle lightning-fast connectivity with your finance products. Unlock exclusive ISP perks when applying through
+              yoxla24.
+            </p>
+          </div>
+          <span class="pill">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11a1 1 0 0 0 .71-.29l2-2-1.42-1.42L21 8.59V3h-2v5.59l-1.29-1.3L16.29 8l2 2a1 1 0 0 0 .71.29ZM10 3H2v2h8Zm4 4H2v2h12Zm-4 4H2v2h8Zm12 4h-8v2h8Zm-12 0H2v2h8ZM6 19H2v2h4Zm16 0h-8v2h8Z" /></svg>
+            Exclusive ISP cashback partners
+          </span>
+        </div>
+        <div class="offers-grid">
+          <article class="offer-card">
+            <div class="offer-header">
+              <span class="bank-name">FiberNova</span>
+              <span class="tag">Bundle</span>
+            </div>
+            <div class="rate">1 Gbps</div>
+            <div class="details">
+              <span>₼49 / month when paired with FlexBank credit</span>
+              <span>Smart home security kit included</span>
+              <span>Priority engineer visit within 12 hours</span>
+            </div>
+            <a class="apply-now" href="#">Apply Now</a>
+          </article>
+          <article class="offer-card">
+            <div class="offer-header">
+              <span class="bank-name">SkyWave</span>
+            </div>
+            <div class="rate">500 Mbps</div>
+            <div class="details">
+              <span>₼29 / month plus 10% card cashback</span>
+              <span>Unlimited mobile data add-on</span>
+              <span>Gaming latency optimizer</span>
+            </div>
+            <a class="apply-now" href="#">Apply Now</a>
+          </article>
+          <article class="offer-card">
+            <div class="offer-header">
+              <span class="bank-name">MetroLink</span>
+              <span class="tag" style="background: rgba(93, 208, 165, 0.2); color: var(--success);">Smart City</span>
+            </div>
+            <div class="rate">2 Gbps</div>
+            <div class="details">
+              <span>₼79 / month with enterprise credit bundles</span>
+              <span>IoT fleet monitoring suite</span>
+              <span>24/7 VIP network concierge</span>
+            </div>
+            <a class="apply-now" href="#">Apply Now</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="insights-panel" id="contact">
+        <div class="section-heading" style="margin-bottom: 0; align-items: start;">
+          <div>
+            <h2>Insights &amp; concierge support</h2>
+            <p>
+              Our advisory team translates complex finance decisions into confident action. Schedule a micro-consultation or
+              sync via chat—your dedicated partner is one tap away.
+            </p>
+          </div>
+          <a class="apply-now" href="#">Apply Now</a>
+        </div>
+        <div class="insight-grid">
+          <div class="insight-card">
+            <h3>Smart matching</h3>
+            <p>AI-driven matching ranks offers based on your goals, cashflow, and risk profile.</p>
+          </div>
+          <div class="insight-card">
+            <h3>Market signals</h3>
+            <p>Morning briefings summarize central bank updates and sector performance.</p>
+          </div>
+          <div class="insight-card">
+            <h3>Compliance handled</h3>
+            <p>Digital document vault keeps your onboarding packages audited and compliant.</p>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div class="footer-grid">
+          <div>
+            <h4>About yoxla24</h4>
+            <p>
+              Built to empower individuals and businesses with transparent access to financial opportunity. We believe in
+              smarter, more human finance.
+            </p>
+          </div>
+          <div>
+            <h4>Marketplace</h4>
+            <ul>
+              <li><a href="#retail-credit">Retail Credit</a></li>
+              <li><a href="#business-credit">Business Credit</a></li>
+              <li><a href="#insurance">Insurance</a></li>
+              <li><a href="#life-insurance">Life Insurance</a></li>
+              <li><a href="#deposits">Deposits</a></li>
+              <li><a href="#internet">Internet Packages</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Support</h4>
+            <ul>
+              <li><a href="#">Chat with us</a></li>
+              <li><a href="#">Book a call</a></li>
+              <li><a href="#">FAQs</a></li>
+              <li><a href="#">Security</a></li>
+            </ul>
+          </div>
+        </div>
+        <span>© 2024 yoxla24. Crafted with care in the Caucasus.</span>
+      </footer>
+    </div>
+  </body>
+</html>
